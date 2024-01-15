@@ -11,7 +11,7 @@ import {
 
 export default function Sidebar(props) {
     // destructuring the provided props 
-    const {isOpen, width, setIsSidebarOpen} = props;
+    const {isSidebarOpen, width, setIsSidebarOpen} = props;
 
     // taking them Object out 
     const theme = useTheme();
@@ -21,9 +21,9 @@ export default function Sidebar(props) {
     <Box
     component='nav'
     >
-    {isOpen && (
+    {isSidebarOpen && (
         <Drawer
-          open={isOpen}
+          open={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
           variant="persistent"
           anchor="left"

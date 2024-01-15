@@ -10,19 +10,19 @@ export default function RootLayout() {
   const theme = useTheme();
 
   // for Sidebar
-  const [isOpen, setIsOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
     <Box display="flex" width="100%" height="100%">
       <Sidebar 
-        isOpen={isOpen}
+        isSidebarOpen={isSidebarOpen}
         width= "250px"
-        setIsSidebarOpen= {setIsOpen}
+        setIsSidebarOpen= {setIsSidebarOpen}
       />
       <Box>
         <Navbar
-        isSidebarOpen={isOpen}
-        setIsSidebarOpen= {setIsOpen}
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen= {setIsSidebarOpen}
         />
         <Outlet/>
       </Box>
