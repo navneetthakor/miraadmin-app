@@ -9,7 +9,7 @@ export default function Home() {
         backgroundColor: theme.palette.background,
       }}
     >
-      <Typography sx={{m: "20px"}} variant="h1">Hello guy's</Typography>
+      {/* <Typography sx={{m: "20px"}} variant="h1">Hello guy's</Typography> */}
     </Box>
   );
 }

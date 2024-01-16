@@ -19,7 +19,7 @@ export default function RootLayout() {
       <Sidebar 
         isNonMobile={isNonMobile}
         isSidebarOpen={isSidebarOpen}
-        width= "250px"
+        OuterDrawerWidth= "250px"
         setIsSidebarOpen= {setIsSidebarOpen}
       />
       <Box flexGrow={1}>

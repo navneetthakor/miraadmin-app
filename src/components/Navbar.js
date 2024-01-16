@@ -67,7 +67,7 @@ export default function Navbar(props) {
         </FlexBetween>
 
         {/* right side  */}
-        <FlexBetween>
+        <FlexBetween gap="10px">
           {theme.palette.mode == "dark" ? (
             <IconButton onClick={() => dispatch(setMode())}>
               <LightModeOutlined sx={{ fontSize: "25px" }} />
