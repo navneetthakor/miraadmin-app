@@ -10,17 +10,27 @@ import {
 import {
   DarkModeOutlined,
   LightModeOutlined,
+  SettingsOutlined as SettingsIcon,
   Menu as MenuIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
 import FlexBetween from "./FlexBetween.js";
 
+// to change the mode
+import { useDispatch } from "react-redux";
+import { setMode } from "../store/Mode.js";
+
 export default function Navbar(props) {
   // destructuring props
-  const { isSidebarOpen, setIsSidebarOpen } = props;
+  const { isSidebarOpen, setIsSidebarOpen, isNonMobile } = props;
 
   // taking theme object out
   const theme = useTheme();
+
+  // preparing material for dispatch
+  const dispatch = useDispatch();
+
+  // actual object returning
   return (
     <AppBar
       sx={{
@@ -36,9 +46,11 @@ export default function Navbar(props) {
       >
         {/* left side part  */}
         <FlexBetween>
-          <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)} >
-            <MenuIcon sx={{ fontSize: "25px" }} />
-          </IconButton>
+          {!isNonMobile && (
+            <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+              <MenuIcon sx={{ fontSize: "25px" }} />
+            </IconButton>
+          )}
           <FlexBetween
             sx={{
               borderRadius: "9px",
@@ -54,30 +66,20 @@ export default function Navbar(props) {
           </FlexBetween>
         </FlexBetween>
 
-        {/* <FlexBetween>
-          <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-            <MenuIcon />
-          </IconButton>
-          <FlexBetween
-            backgroundColor={theme.palette.background.alt}
-            borderRadius="9px"
-            gap="3rem"
-            p="0.1rem 1.5rem"
-          >
-            <InputBase placeholder="Search..." />
-            <IconButton>
-              <SearchIcon />
-            </IconButton>
-          </FlexBetween>
-        </FlexBetween> */}
-
         {/* right side  */}
         <FlexBetween>
+          {theme.palette.mode == "dark" ? (
+            <IconButton onClick={() => dispatch(setMode())}>
+              <LightModeOutlined sx={{ fontSize: "25px" }} />
+            </IconButton>
+          ) : (
+            <IconButton onClick={() => dispatch(setMode())}>
+              <DarkModeOutlined sx={{ fontSize: "25px" }} />
+            </IconButton>
+          )}
+
           <IconButton>
-            <LightModeOutlined sx={{ fontSize: "25px" }} />
-          </IconButton>
-          <IconButton>
-            <DarkModeOutlined sx={{ fontSize: "25px" }} />
+            <SettingsIcon sx={{ fontSize: "25px" }} />
           </IconButton>
         </FlexBetween>
       </Toolbar>

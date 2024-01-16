@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Button,
   useTheme
 } from '@mui/material';
 
@@ -39,6 +40,7 @@ export default function Sidebar(props) {
           }}
         >
         nk the boss
+        <Button variant='outlined' onClick={()=> setIsSidebarOpen(!isSidebarOpen)}>click here</Button>
       </Drawer>
     )}
     </Box>
