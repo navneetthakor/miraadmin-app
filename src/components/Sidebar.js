@@ -102,7 +102,6 @@ export default function Sidebar(props) {
       {isSidebarOpen && (
         <Drawer
           open={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
           variant="persistent"
           anchor="left"
           sx={{
