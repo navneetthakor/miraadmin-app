@@ -34,9 +34,10 @@ export default function Navbar(props) {
   return (
     <AppBar
       sx={{
-        position: "static",
         background: "none",
-        boxShadow: "none",
+        position: "sticky",
+        right:0,
+        top: 0,
       }}
     >
       <Toolbar

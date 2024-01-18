@@ -10,7 +10,7 @@ export default function RootLayout() {
   const theme = useTheme();
 
   // whether device is mobile or not 
-  const isNonMobile = useMediaQuery("(min-width: 770px)")
+  const isNonMobile = useMediaQuery("(min-width: 960px)")
   // for Sidebar
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -28,7 +28,7 @@ export default function RootLayout() {
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen= {setIsSidebarOpen}
         />
-        <Outlet/>
+        <Outlet context={isNonMobile} />
       </Box>
     </Box>
   );
