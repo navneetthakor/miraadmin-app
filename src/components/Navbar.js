@@ -34,7 +34,7 @@ export default function Navbar(props) {
   return (
     <AppBar
       sx={{
-        background: "none",
+        background: theme.palette.background.default,
         position: "sticky",
         right:0,
         top: 0,

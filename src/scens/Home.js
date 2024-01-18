@@ -1,16 +1,17 @@
 import React from "react";
-import { Box, Card, CardContent, Typography, useTheme } from "@mui/material";
+import { Box, Card, CardContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useTheme } from "@mui/material";
 import FlexBetween from "../components/FlexBetween";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useOutletContext } from "react-router-dom";
+import { LineChart, PieChart } from "@mui/x-charts";
 
 // array for cards in top
 const cards = [
   {
     header: "Sales Today",
-    amount: 2.532,
+    amount: "$ 2.532",
     profitLose: 26,
     tag: "today",
   },
@@ -34,63 +35,97 @@ const cards = [
   },
 ];
 
+// for line chart
+const Sales = [20, 50, 35, 25, 20, 30, 32];
+const Orders = [2, 6, 3, 2, 3, 3, 4];
+const xLabels = ["March", "April", "May", "Jun", "July", "August", "September"];
+
+// for table of piechart 
+const pietableRows = [
+  {
+    source: "Social",
+    revenue: 260,
+    value: 35
+  },
+  {
+    source: "Search Engines",
+    revenue: 125,
+    value: -12
+  },
+  {
+    source: "Direct",
+    revenue: 54,
+    value: 46
+  },
+  {
+    source: "Other",
+    revenue: 146,
+    value: 24
+  },
+]
+
 export default function Home(props) {
   const theme = useTheme();
   const isNonMobile = useOutletContext();
 
-  // function to put the cards
-  const putCards =
-    cards.map((iteam) => {
-      return (
-        <Card
-          sx={{
-            backgroundColor: `${iteam.tag === "none" ? "rgba(255, 255, 255, 0.5)" : theme.palette.background.alt}`,
-            color: `${iteam.tag === "none" ? theme.palette.primary[500] : "inherite"}`,
-          }}
-        >
-          <CardContent>
-            <FlexBetween>
-              <Typography variant="h4">{iteam.header}</Typography>
-              {iteam.tag !== "none" && (
-                <Typography
-                  sx={{
-                    backgroundColor: "#1E90FF",
-                    padding: "0% 2%",
-                    borderRadius: "5px",
-                  }}
-                >
-                  {iteam.tag}
-                </Typography>
-              )}
-            </FlexBetween>
-
-            <Typography variant="h2" sx={{ m: "2% 0%" }}>
-              {iteam.amount}
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                gap: "5%",
-              }}
-            >
+  //  to put the cards
+  const putCards = cards.map((iteam) => {
+    return (
+      <Card
+        sx={{
+          backgroundColor: `${
+            iteam.tag === "none"
+              ? "rgba(255, 255, 255, 0.5)"
+              : theme.palette.background.alt
+          }`,
+          color: `${
+            iteam.tag === "none" ? theme.palette.primary[500] : "inherite"
+          }`,
+        }}
+      >
+        <CardContent>
+          <FlexBetween>
+            <Typography variant="h4">{iteam.header}</Typography>
+            {iteam.tag !== "none" && (
               <Typography
                 sx={{
-                  backgroundColor: `${iteam.profitLose < 0 ? "rgba(255,69,0,0.7)" : "green"}`,
+                  backgroundColor: "#1E90FF",
                   padding: "0% 2%",
                   borderRadius: "5px",
                 }}
               >
-                {iteam.profitLose}%
+                {iteam.tag}
               </Typography>
-              <Typography>Since last month</Typography>
-            </Box>
-          </CardContent>
-        </Card>
-      );
-    });
+            )}
+          </FlexBetween>
 
-
+          <Typography variant="h2" sx={{ m: "2% 0%" }}>
+            {iteam.amount}
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "5%",
+            }}
+          >
+            <Typography
+              sx={{
+                backgroundColor: `${
+                  iteam.profitLose < 0 ? "rgba(255,69,0,0.4)" : "rgba(50, 205, 50,0.4)"
+                }`,
+                padding: "0% 2%",
+                borderRadius: "5px",
+              }}
+            >
+              {iteam.profitLose}%
+            </Typography>
+            <Typography>Since last month</Typography>
+          </Box>
+        </CardContent>
+      </Card>
+    );
+  });
 
   // -------------- actual returning part ----------------
   return (
@@ -147,6 +182,95 @@ export default function Home(props) {
         }}
       >
         {putCards}
+      </Box>
+
+      {/* line and pie chart  */}
+      <Box
+        sx={{
+          margin: `${isNonMobile ? "5% 0%" : "10% 0%"}`,
+          display: "flex",
+          flexDirection: `${isNonMobile ? "row" : "column"}`,
+          gap: "5%",
+        }}
+      >
+        {/* linechart  */}
+        <Box
+          sx={{
+            width: `${isNonMobile ? "65%" : "100%"}`,
+            height: 500,
+            backgroundColor: theme.palette.background.alt,
+            borderRadius: "5px",
+          }}
+        >
+          <Typography variant="h4" sx={{ m: "10px 15px" }}>
+            Total Revenue
+          </Typography>
+          <LineChart
+            xAxis={[{ scaleType: "point", data: xLabels }]}
+            series={[
+              {
+                data: Sales,
+                label: "Sales",
+              },
+              {
+                data: Orders,
+                label: "Orders",
+              },
+            ]}
+            height={450}
+          />
+        </Box>
+
+        {/* piechart  */}
+        <Box
+          sx={{
+            width: `${isNonMobile ? "30%" : "100%"}`,
+            height: 500,
+            backgroundColor: theme.palette.background.alt,
+            borderRadius: "5px",
+            marginTop: `${isNonMobile ? "inherite" : "5%"}`,
+          }}
+        >
+          <Typography variant="h4" sx={{ m: "10px 15px" }}>
+            Weekly Sales
+          </Typography>
+          <PieChart
+            series={[
+              {
+                data: [
+                  { id: 0, value: 10, label: "series A" },
+                  { id: 1, value: 15, label: "series B" },
+                  { id: 2, value: 20, label: "series C" },
+                ],
+              },
+            ]}
+            height={150}
+          />
+
+          {/* table that used in piechart */}
+          <Box margin="5% 5%" >
+            <TableContainer>
+              <Table >
+                <TableHead>
+                  <TableRow>
+                    <TableCell >Source</TableCell>
+                    <TableCell align="right">Revenue</TableCell>
+                    <TableCell align="right">Value</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {pietableRows.map((iteam) => {
+                    return(<TableRow>
+                      <TableCell >{iteam.source}</TableCell>
+                      <TableCell align="right">{iteam.revenue}</TableCell>
+                      <TableCell align="right" sx={{color: `${iteam.value > 0 ? "#32CD32" : "red"}`}}>{iteam.value}%</TableCell>
+                    </TableRow>)
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
