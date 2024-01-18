@@ -1,11 +1,24 @@
 import React from "react";
-import { Box, Card, CardContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import FlexBetween from "../components/FlexBetween";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useOutletContext } from "react-router-dom";
-import { LineChart, PieChart } from "@mui/x-charts";
+import { BarChart, LineChart, PieChart } from "@mui/x-charts";
 
 // array for cards in top
 const cards = [
@@ -40,29 +53,29 @@ const Sales = [20, 50, 35, 25, 20, 30, 32];
 const Orders = [2, 6, 3, 2, 3, 3, 4];
 const xLabels = ["March", "April", "May", "Jun", "July", "August", "September"];
 
-// for table of piechart 
+// for table of piechart
 const pietableRows = [
   {
     source: "Social",
     revenue: 260,
-    value: 35
+    value: 35,
   },
   {
     source: "Search Engines",
     revenue: 125,
-    value: -12
+    value: -12,
   },
   {
     source: "Direct",
     revenue: 54,
-    value: 46
+    value: 46,
   },
   {
     source: "Other",
     revenue: 146,
-    value: 24
+    value: 24,
   },
-]
+];
 
 export default function Home(props) {
   const theme = useTheme();
@@ -112,7 +125,9 @@ export default function Home(props) {
             <Typography
               sx={{
                 backgroundColor: `${
-                  iteam.profitLose < 0 ? "rgba(255,69,0,0.4)" : "rgba(50, 205, 50,0.4)"
+                  iteam.profitLose < 0
+                    ? "rgba(255,69,0,0.4)"
+                    : "rgba(50, 205, 50,0.4)"
                 }`,
                 padding: "0% 2%",
                 borderRadius: "5px",
@@ -202,7 +217,7 @@ export default function Home(props) {
             borderRadius: "5px",
           }}
         >
-          <Typography variant="h4" sx={{ m: "10px 15px" }}>
+          <Typography variant="h4" sx={{ p: "10px 15px" }}>
             Total Revenue
           </Typography>
           <LineChart
@@ -217,7 +232,7 @@ export default function Home(props) {
                 label: "Orders",
               },
             ]}
-            height={450}
+            height={455}
           />
         </Box>
 
@@ -231,16 +246,17 @@ export default function Home(props) {
             marginTop: `${isNonMobile ? "inherite" : "5%"}`,
           }}
         >
-          <Typography variant="h4" sx={{ m: "10px 15px" }}>
+          <Typography variant="h4" sx={{ p: "10px 15px" }}>
             Weekly Sales
           </Typography>
           <PieChart
             series={[
               {
                 data: [
-                  { id: 0, value: 10, label: "series A" },
-                  { id: 1, value: 15, label: "series B" },
-                  { id: 2, value: 20, label: "series C" },
+                  { id: 0, value: 260, label: "Social" },
+                  { id: 1, value: 125, label: "Search Eng." },
+                  { id: 2, value: 54, label: "Direct" },
+                  { id: 3, value: 146, label: "Others" },
                 ],
               },
             ]}
@@ -248,29 +264,60 @@ export default function Home(props) {
           />
 
           {/* table that used in piechart */}
-          <Box margin="5% 5%" >
+          <Box margin="5% 5%">
             <TableContainer>
-              <Table >
+              <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell >Source</TableCell>
+                    <TableCell>Source</TableCell>
                     <TableCell align="right">Revenue</TableCell>
                     <TableCell align="right">Value</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {pietableRows.map((iteam) => {
-                    return(<TableRow>
-                      <TableCell >{iteam.source}</TableCell>
-                      <TableCell align="right">{iteam.revenue}</TableCell>
-                      <TableCell align="right" sx={{color: `${iteam.value > 0 ? "#32CD32" : "red"}`}}>{iteam.value}%</TableCell>
-                    </TableRow>)
+                    return (
+                      <TableRow>
+                        <TableCell>{iteam.source}</TableCell>
+                        <TableCell align="right">{iteam.revenue}</TableCell>
+                        <TableCell
+                          align="right"
+                          sx={{
+                            color: `${iteam.value > 0 ? "#32CD32" : "red"}`,
+                          }}
+                        >
+                          {iteam.value}%
+                        </TableCell>
+                      </TableRow>
+                    );
                   })}
                 </TableBody>
               </Table>
             </TableContainer>
           </Box>
         </Box>
+      </Box>
+
+      {/* barChart and table  */}
+      <Box
+      sx={{
+        height: "500px",
+        width: "100%",
+        marginBottom: "5%",
+        backgroundColor: theme.palette.background.alt,
+      }}
+      >
+        <Typography variant="h4" sx={{ p: "10px 15px"}}>
+            Mobile/Desktop
+          </Typography>
+        <BarChart
+        height={455}
+          series={[
+            { data: Sales, label: "Mobile", id: "pvId", stack: "total" },
+            { data: Orders, label: "Desktop", id: "uvId", stack: "total" },
+          ]}
+          xAxis={[{ data: xLabels, scaleType: "band" }]}
+        />
       </Box>
     </Box>
   );
