@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import RootLayout from "./scens/RootLayout.js";
 import Home from "./scens/Home.js";
+import Products from "./scens/Products.js";
 
 // ---------Material ui setup-------------
 import { CssBaseline, ThemeProvider} from "@mui/material";
@@ -28,6 +29,8 @@ function App() {
     createRoutesFromElements(
       <Route exact path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
+        <Route exact path="/Dashboard" element={<Home/>}/>
+        <Route exact path="/Products" element={<Products/>}/>
       </Route>
     )
   );

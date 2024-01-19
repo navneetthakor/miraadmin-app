@@ -15,6 +15,7 @@ import {
   DialogTitle,
   Modal,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom"; 
 
 // importing mui components
 import { Box, Drawer } from "@mui/material";
@@ -30,6 +31,7 @@ import {
   PointOfSaleOutlined,
   PublicOutlined,
   ReceiptLongOutlined,
+  RemoveFromQueue,
   ShoppingCartOutlined,
   TodayOutlined,
   TrendingDownOutlined,
@@ -93,6 +95,9 @@ export default function Sidebar(props) {
 
   // to determine the active tab
   const [active, setActive] = useState("Dashboard");
+
+  // for navigation 
+  const navigate = useNavigate();
 
   return (
     <Box component="nav"
@@ -172,7 +177,10 @@ export default function Sidebar(props) {
                   return (
                     <ListItem>
                       <ListItemButton
-                        onClick={() => setActive(iteam.text)}
+                        onClick={() => {
+                          setActive(iteam.text);
+                          navigate(`/${iteam.text}`);
+                        }}
                         sx={{
                           padding: "1% 0% 1% 10%",
                           backgroundColor:
