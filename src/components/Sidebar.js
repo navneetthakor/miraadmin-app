@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import profileImg from "../assets/profile.jpg";
 import {
-  Button,
   IconButton,
   List,
   ListItem,
@@ -10,10 +9,8 @@ import {
   ListItemText,
   Typography,
   useTheme,
-  DialogContent,
   Avatar,
   DialogTitle,
-  Modal,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom"; 
 
@@ -21,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 import { Box, Drawer } from "@mui/material";
 import FlexBetween from "./FlexBetween";
 import {
-  AdminPanelSettingsOutlined,
   CalendarMonthOutlined,
   ChevronLeft,
   ChevronRightOutlined,
@@ -31,10 +27,8 @@ import {
   PointOfSaleOutlined,
   PublicOutlined,
   ReceiptLongOutlined,
-  RemoveFromQueue,
   ShoppingCartOutlined,
   TodayOutlined,
-  TrendingDownOutlined,
 } from "@mui/icons-material";
 
 // creating list
@@ -52,7 +46,7 @@ const sidebarIteam = [
     icon: <ShoppingCartOutlined />,
   },
   {
-    text: "Customer",
+    text: "Customers",
     icon: <Groups2Outlined />,
   },
   {

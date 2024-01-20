@@ -33,10 +33,11 @@ export default function Navbar(props) {
   // actual object returning
   return (
     <AppBar
+    position="sticky"
       sx={{
         background: theme.palette.background.default,
         position: "sticky",
-        right:0,
+        left:0,
         top: 0,
       }}
     >

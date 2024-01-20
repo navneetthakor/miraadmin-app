@@ -17,6 +17,7 @@ import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { themeSettings } from "./theme";
+import Customers from "./scens/Customers.js";
 
 // ------------ Main Function -------------
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route index element={<Home />} />
         <Route exact path="/Dashboard" element={<Home/>}/>
         <Route exact path="/Products" element={<Products/>}/>
+        <Route exact path="/Customers" element={<Customers/>}/>
       </Route>
     )
   );
