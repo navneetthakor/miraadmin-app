@@ -92,6 +92,7 @@ export default function Products() {
             return (
               <Grid
                 iteam
+                key={iteam._id}
                 sx={{
                   padding: `${ isNonMobile ? "10px 0px 10px 10px" : "inherite"}`,
                   height: `${isNonMobile ? "90px" : "200px"}`,

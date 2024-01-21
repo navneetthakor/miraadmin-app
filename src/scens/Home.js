@@ -85,6 +85,7 @@ export default function Home(props) {
   const putCards = cards.map((iteam) => {
     return (
       <Card
+      key={iteam.header}
         sx={{
           backgroundColor: `${
             iteam.tag === "none"
