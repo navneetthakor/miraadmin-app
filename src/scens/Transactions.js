@@ -1,18 +1,18 @@
 import { useTheme } from "@emotion/react";
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
-import CustomerContext from "../context/CustomerContext";
+import TransactionContext from "../context/TransactionContext";
 
-export default function Customers() {
+export default function Transactions() {
   // to get theme Object
   const theme = useTheme();
 
   //  to get props provided to <outlet/>
   const isNonMobile = useOutletContext();
 
-  // geting values form CustomerContext 
-  const {customers, isCustomersAvailable} = useContext(CustomerContext);
+  // to get data from TransactionContext
+  const {transactions, isTransactiosAvailable} = useContext(TransactionContext);
 
   return (
     <Box
@@ -32,14 +32,14 @@ export default function Customers() {
           alignItems: `${isNonMobile ? "inherite" : "center"}`,
         }}
       >
-        <Typography variant="h1">Customers</Typography>
+        <Typography variant="h1">Transactions</Typography>
         <Typography
           variant="h4"
           sx={{
             color: theme.palette.secondary[300],
           }}
         >
-          List of Customers
+          List of Transactions
         </Typography>
       </Box>
 
@@ -49,9 +49,7 @@ export default function Customers() {
         component={Paper}
          sx={{
             backgroundColor: theme.palette.background.alt
-         }}
-         
-         >
+         }}>
             <Table >
                 <TableHead>
                     <TableRow>
@@ -61,16 +59,9 @@ export default function Customers() {
                         <TableCell>Date</TableCell>
                     </TableRow>
                 </TableHead>
-              {isCustomersAvailable &&  
+              {isTransactiosAvailable &&  
                 <TableBody sx={{backgroundColor: theme.palette.background.default}}>
-                  {customers.map((iteam)=>{
-                   return(  <TableRow key={iteam._id}>
-                      <TableCell>{iteam._id}</TableCell>
-                      <TableCell>{iteam.name}</TableCell>
-                      <TableCell>{iteam.email}</TableCell>
-                      <TableCell>{iteam.date.substring(0,10)}</TableCell>
-                    </TableRow>)
-                  })}
+                  
                 </TableBody>}
             </Table>
         </TableContainer>

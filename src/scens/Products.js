@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext,} from "react";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
 import FlexBetween from "../components/FlexBetween";
 import { Add, KeyboardArrowDownOutlined } from "@mui/icons-material";
+import ProductContext from "../context/ProductContext";
 
 export default function Products() {
   // to get props provided to outlet component in rootLayout
@@ -11,33 +12,8 @@ export default function Products() {
   // to get theme, that we setted earlier
   const theme = useTheme();
 
-  // to save the Products fetched from backend
-  const [prods, setProds] = useState([]);
-
-  // to check whether product fetching is completed or not
-  const [isProdsAvilable, setIsProdsAvilable] = useState(false);
-
-  // function to fetched the products
-  const fetchProds = async () => {
-    const url = `http://localhost:5000/storeproducts/fetchallprods`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    data.reverse();
-    if (data) {
-      setProds(data);
-      setIsProdsAvilable(true);
-    }
-  };
-
-  // to call fetchProds 
-  useEffect(()=>{
-    fetchProds();
-  })
+  // to get products form ProductContext
+  const {prods, isProdsAvilable} = useContext(ProductContext);
 
   return (
     <Box

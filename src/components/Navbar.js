@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Box,
   AppBar,
   Toolbar,
   useTheme,
@@ -70,7 +69,7 @@ export default function Navbar(props) {
 
         {/* right side  */}
         <FlexBetween gap="10px">
-          {theme.palette.mode == "dark" ? (
+          {theme.palette.mode === "dark" ? (
             <IconButton onClick={() => dispatch(setMode())}>
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             </IconButton>
