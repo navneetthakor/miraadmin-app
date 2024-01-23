@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import { themeSettings } from "./theme";
 import Customers from "./scens/Customers.js";
 import Transactions from "./scens/Transactions.js";
+import AddProduct from "./scens/AddProduct.js";
 
 // ------------ Main Function -------------
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/Products" element={<Products/>}/>
         <Route exact path="/Customers" element={<Customers/>}/>
         <Route exact path="/Transaction" element={<Transactions/>}/>
+        <Route exact path="/AddProduct" element={<AddProduct/>}/>
         <Route path="*" element={<Home/>}/>
       </Route>
     )

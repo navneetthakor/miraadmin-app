@@ -1,6 +1,6 @@
 import React, { useContext,} from "react";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import FlexBetween from "../components/FlexBetween";
 import { Add, KeyboardArrowDownOutlined } from "@mui/icons-material";
 import ProductContext from "../context/ProductContext";
@@ -12,6 +12,8 @@ export default function Products() {
   // to get theme, that we setted earlier
   const theme = useTheme();
 
+  // to use navigation 
+  const navigate = useNavigate();
   // to get products form ProductContext
   const {prods, isProdsAvilable} = useContext(ProductContext);
 
@@ -49,6 +51,7 @@ export default function Products() {
               backgroundColor: theme.palette.background.alt,
             }}
             endIcon={<Add />}
+            onClick={() => navigate("/AddProduct")}
           >
             Add Products
           </Button>
