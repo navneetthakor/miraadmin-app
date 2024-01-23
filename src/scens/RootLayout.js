@@ -6,8 +6,11 @@ import Navbar from "../components/Navbar";
 import ProductContext from "../context/ProductContext";
 import CustomerContext from "../context/CustomerContext";
 import TransactionContext from "../context/TransactionContext";
+import { useTheme } from "@emotion/react";
 
 export default function RootLayout() {
+  //to get theme object
+  const theme = useTheme();
   // whether device is mobile or not
   const isNonMobile = useMediaQuery("(min-width: 960px)");
 
@@ -70,7 +73,7 @@ export default function RootLayout() {
   useEffect(() => {
     fetchCustomers();
     fetchProds();
-  });
+  },[theme]);
 
   // --------------------------------------actual returning value -------------------------------------
   return (
