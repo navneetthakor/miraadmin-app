@@ -1,6 +1,6 @@
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Add, CloudUpload, Delete, Store } from "@mui/icons-material";
+import { Add, CloudUpload, Delete} from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -12,14 +12,14 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { json, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 
 export default function AddProduct() {
-  // to get whether divice is mobile or not
+  // ---------------------------------to get whether divice is mobile or not
   const isNonMobile = useOutletContext();
 
-  // to store values 
+  // ---------------------------------to store values 
   const [object, setObject] = useState({
     title: "",
     company: "",
@@ -62,7 +62,7 @@ export default function AddProduct() {
     setObject({...object, description: event.target.value});
   }
 
-  // array for displaing required fields
+  //--------------------------------- array for displaing required fields
 const fieldArray = [
   {
     dobule: false,
@@ -99,7 +99,7 @@ const fieldArray = [
   },
 ];
 
-// for upload button
+// ------------------------------------for upload button
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -112,19 +112,19 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-  // to get theme object
+  // -----------------------------to get theme object
   const theme = useTheme();
 
-  // to Store the images
+  //------------------------------ to Store the images
   const [uploadedImages, setUploadedImages] = useState(null);
 
-  // function to add uploadedImages to array
+  // ----------------------------function to add uploadedImages to array
   const handleImageSubmit = (event) => {
     if (uploadedImages === null) setUploadedImages([event.target.files]);
     else setUploadedImages([...uploadedImages, event.target.files]);
   };
 
-  // to remove image
+  // ---------------------------to remove image
   const handleImageRemove = (iteam) => {
     const data = uploadedImages?.filter((it) => {
       return it !== iteam;
@@ -132,15 +132,7 @@ const VisuallyHiddenInput = styled("input")({
     setUploadedImages(data);
   };
 
-  // for dropdown list
-  // const [value, setValue] = useState("Category");
-
-  // on dropdown value change
-  // const handleValueChange = (event) => {
-  //   setValue(event.target.value);
-  // };
-
-  // to add product on submit 
+  // ---------------------------to add product on submit 
   const handleProdSubmit = async() =>{
     // creating formData object 
     const formData = new FormData();
@@ -169,6 +161,7 @@ const VisuallyHiddenInput = styled("input")({
     else alert("some error occured");
   }
 
+  // ------------------------------actul returning object -------------------------------
   return (
     <Box
       sx={{
