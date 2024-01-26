@@ -116,7 +116,7 @@ const VisuallyHiddenInput = styled("input")({
   const theme = useTheme();
 
   //------------------------------ to Store the images
-  const [uploadedImages, setUploadedImages] = useState(null);
+  const [uploadedImages, setUploadedImages] = useState([]);
 
   // ----------------------------function to add uploadedImages to array
   const handleImageSubmit = (event) => {
