@@ -12,35 +12,90 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { json, useOutletContext } from "react-router-dom";
 
-// array for displaing required fields
+
+export default function AddProduct() {
+  // to get whether divice is mobile or not
+  const isNonMobile = useOutletContext();
+
+  // to store values 
+  const [object, setObject] = useState({
+    title: "",
+    company: "",
+    model:"",
+    height:"",
+    width: "",
+    price: "",
+    dummyPrice: "",
+    category: "",
+    description: ""
+  })
+
+  const handleTitleChange = (event) =>{
+     setObject({...object, title: event.target.value});
+    console.log(object);
+  }
+  const handleCompanyChange = (event) =>{
+    setObject({...object, company: event.target.value});
+    console.log(object);
+  }
+  const handleModelChange = (event) =>{
+    setObject({...object, model: event.target.value});
+  }
+  const handleHeightChange = (event) =>{
+    setObject({...object, height: event.target.value});
+  }
+  const handleWidthChange = (event) =>{
+    setObject({...object, width: event.target.value});
+  }
+  const handlePriceChange = (event) =>{
+    setObject({...object, price: event.target.value});
+  }
+  const handleDummyPriceChange = (event) =>{
+    setObject({...object, dummyPrice: event.target.value});
+  }
+  const handleCategoryChange = (event) =>{
+    setObject({...object, category: event.target.value});
+  }
+  const handleDescriptionChange = (event) =>{
+    setObject({...object, description: event.target.value});
+  }
+
+  // array for displaing required fields
 const fieldArray = [
   {
     dobule: false,
     name: "Title",
     placeholder: "vivo T2 5G Pro...",
+    onChange: handleTitleChange
   },
   {
     dobule: true,
     name1: "company",
     placeholder1: "vivo...",
+    onChange1: handleCompanyChange,
     name2: "model",
     placeholder2: "T2 5G pro...",
+    onChange2: handleModelChange
   },
   {
     dobule: true,
     name1: "height",
     placeholder1: "6.5 inches",
+    onChange1: handleHeightChange,
     name2: "width",
     placeholder2: "4.5 inches",
+    onChange2: handleWidthChange
   },
   {
     dobule: true,
     name1: "price",
     placeholder1: "499",
+    onChange1: handlePriceChange,
     name2: "DummyPrice",
     placeholder2: "799",
+    onChange2: handleDummyPriceChange
   },
 ];
 
@@ -56,10 +111,6 @@ const VisuallyHiddenInput = styled("input")({
   whiteSpace: "nowrap",
   width: 1,
 });
-
-export default function AddProduct() {
-  // to get whether divice is mobile or not
-  const isNonMobile = useOutletContext();
 
   // to get theme object
   const theme = useTheme();
@@ -82,12 +133,41 @@ export default function AddProduct() {
   };
 
   // for dropdown list
-  const [value, setValue] = useState("Category");
+  // const [value, setValue] = useState("Category");
 
   // on dropdown value change
-  const handleValueChange = (event) => {
-    setValue(event.target.value);
-  };
+  // const handleValueChange = (event) => {
+  //   setValue(event.target.value);
+  // };
+
+  // to add product on submit 
+  const handleProdSubmit = async() =>{
+    // creating formData object 
+    const formData = new FormData();
+
+    // adding images to formData 
+    for(let i=0; i<uploadedImages.length; i++) formData.append("images", uploadedImages[i][0]);
+
+    // appending object to formData
+    for(const [key,value] of Object.entries(object)){
+      formData.append(key, value);
+    }
+
+    // url to perform operation 
+    const url = `${process.env.REACT_APP_MY_IP}/storeproducts/addprod`
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "authtoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1YjM5YWE5MzUyNGE5NmQ4YWM1MGU0YSJ9LCJpYXQiOjE3MDYyNzA0MjZ9.oYKh0yUvilGRpJAHwz2vknTJC875Q3d7JmzgYTLAIYk"
+      },
+      body: formData
+    })
+
+    const data = await response.json();
+    console.log(data);
+    if(data.signal === "green") alert("succesfull");
+    else alert("some error occured");
+  }
 
   return (
     <Box
@@ -168,6 +248,7 @@ export default function AddProduct() {
                         marginTop: "5px",
                       }}
                       placeholder={iteam.placeholder1}
+                      onChange={iteam.onChange1}
                     />
                   </Box>
 
@@ -184,6 +265,7 @@ export default function AddProduct() {
                         marginTop: "5px",
                       }}
                       placeholder={iteam.placeholder2}
+                      onChange={iteam.onChange2}
                     />
                   </Box>
                 </Box>
@@ -206,6 +288,7 @@ export default function AddProduct() {
                     marginTop: "5px",
                   }}
                   placeholder={iteam.placeholder}
+                  onChange={iteam.onChange}
                 />
               </Box>
             );
@@ -216,14 +299,14 @@ export default function AddProduct() {
             <Select
             size="small"
             sx={{ marginTop: "5px"}} 
-             value={value} 
-             onChange={handleValueChange}>
+             value={object.category} 
+             onChange={handleCategoryChange}>
               <MenuItem disabled value=" ">
                 --Select category--
               </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={"mobile"}>mobile</MenuItem>
+              <MenuItem value={"Twenty"}>Twenty</MenuItem>
+              <MenuItem value={"Thirty"}>Thirty</MenuItem>
             </Select>
           {/* </Box> */}
 
@@ -238,6 +321,7 @@ export default function AddProduct() {
           >
             <Typography>Description</Typography>
             <TextField
+            onChange={handleDescriptionChange}
               size="small"
               rows={3}
               multiline="true"
@@ -284,6 +368,7 @@ export default function AddProduct() {
             {uploadedImages?.length <= 0 && <Add />}
 
             {uploadedImages?.map((iteam) => {
+              console.log(iteam);
               const url = URL.createObjectURL(iteam[0]);
               return (
                 <ImageListItem key={url} sx={{ overflow: "hidden" }}>
@@ -336,6 +421,7 @@ export default function AddProduct() {
               color: "white",
             },
           }}
+          onClick={handleProdSubmit}
         >
           Submit
         </Button>
