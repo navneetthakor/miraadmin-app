@@ -54,9 +54,9 @@ export default function RootLayout() {
       },
     });
     const data = await response.json();
-    data.reverse();
     console.log(data);
     if (data) {
+      data.reverse();
       setProds(data);
       setIsProdsAvilable(true);
     }
