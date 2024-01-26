@@ -1,8 +1,8 @@
-import React, { useContext,} from "react";
+import React, { useContext, useRef } from "react";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import FlexBetween from "../components/FlexBetween";
-import { Add, KeyboardArrowDownOutlined } from "@mui/icons-material";
+import { Add, Delete, KeyboardArrowDownOutlined } from "@mui/icons-material";
 import ProductContext from "../context/ProductContext";
 
 export default function Products() {
@@ -12,10 +12,32 @@ export default function Products() {
   // to get theme, that we setted earlier
   const theme = useTheme();
 
-  // to use navigation 
+  // to use navigation
   const navigate = useNavigate();
+
   // to get products form ProductContext
-  const {prods, isProdsAvilable} = useContext(ProductContext);
+  const { prods, isProdsAvilable, fetchProds } = useContext(ProductContext);
+
+  // when click on delete button 
+  // const btnRef = useRef(null);
+  const handleDeleteBtnClick = async(id) =>{
+    const url = `${process.env.REACT_APP_MY_IP}/storeproducts/deleteprod/${id}`
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "authtoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1YjM5YWE5MzUyNGE5NmQ4YWM1MGU0YSJ9LCJpYXQiOjE3MDYyNzA0MjZ9.oYKh0yUvilGRpJAHwz2vknTJC875Q3d7JmzgYTLAIYk"
+      },
+    })
+
+    const data = await response.json();
+    console.log(data);
+    if(data.signal === "green") {
+      alert("succesfull");
+      fetchProds();
+    }
+    else alert("some error occured");
+  }
+
 
   return (
     <Box
@@ -73,7 +95,7 @@ export default function Products() {
                 iteam
                 key={iteam._id}
                 sx={{
-                  padding: `${ isNonMobile ? "10px 0px 10px 10px" : "inherite"}`,
+                  padding: `${isNonMobile ? "10px 0px 10px 10px" : "inherite"}`,
                   height: `${isNonMobile ? "90px" : "200px"}`,
                   width: `${isNonMobile ? "80%" : "47.5%"}`,
                   backgroundColor: theme.palette.background.alt,
@@ -109,12 +131,14 @@ export default function Products() {
                     display: "flex",
                     flexDirection: "column",
                     width: `${isNonMobile ? "30%" : "inherite"}`,
-                    textAlign: `${isNonMobile ? "inherite" : "center"}`
+                    textAlign: `${isNonMobile ? "inherite" : "center"}`,
                   }}
                 >
                   <Typography variant="h4">{iteam.title}</Typography>
-                {isNonMobile &&  <Typography>height: {iteam.height}</Typography>}
-                {isNonMobile &&  <Typography>width: {iteam.width}</Typography>}
+                  {isNonMobile && (
+                    <Typography>height: {iteam.height}</Typography>
+                  )}
+                  {isNonMobile && <Typography>width: {iteam.width}</Typography>}
                 </Box>
 
                 <Box
@@ -122,25 +146,38 @@ export default function Products() {
                     marginLeft: "10%",
                     display: `${isNonMobile ? "flex" : "none"}`,
                     flexDirection: "column",
-                    width: "20%"
+                    width: "20%",
                   }}
                 >
                   <Typography variant="h4">Price : {iteam.price}</Typography>
                 </Box>
-                <Button
-                  variant="contained"
-                  sx={{
-                    fontWeight: "bolder",
-                    marginTop: `${isNonMobile ? "15px" : "5%"}`,
-                    backgroundColor: theme.palette.secondary[500],
-                    color: theme.palette.background.default,
-                    height: "40px",
-                    width: "70px",
-                    marginLeft: `${isNonMobile ? "10%" : "inherite"}`,
-                  }}
+
+                <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent:"center",
+                  // border: "2px solid red",
+                  width:`${isNonMobile ? "25%" : "inherite"}`,
+                }}
                 >
-                  view
-                </Button>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      fontWeight: "bolder",
+                      // marginTop: `${isNonMobile ? "15px" : "5%"}`,
+                      backgroundColor: theme.palette.secondary[500],
+                      color: theme.palette.background.default,
+                      height: "35px",
+                      width: "70px",
+                      // marginLeft: `${isNonMobile ? "10%" : "inherite"}`,
+                    }}
+                  >
+                    view
+                  </Button>
+                  <Delete sx={{marginLeft: "25%", fontSize: "25px", color: "red"}} onClick={() => handleDeleteBtnClick(iteam._id)}/>
+                </Box>
               </Grid>
             );
           })}

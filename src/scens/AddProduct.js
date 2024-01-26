@@ -11,13 +11,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import ProductContext from "../context/ProductContext";
 
 
 export default function AddProduct() {
   // ---------------------------------to get whether divice is mobile or not
   const isNonMobile = useOutletContext();
+
+  // to referesh product page 
+  const { fetchProds } = useContext(ProductContext);
 
   // ---------------------------------to store values 
   const [object, setObject] = useState({
@@ -157,7 +161,13 @@ const VisuallyHiddenInput = styled("input")({
 
     const data = await response.json();
     console.log(data);
-    if(data.signal === "green") alert("succesfull");
+
+    // if succussfull 
+    if(data.signal === "green") {
+      alert("succesfull");
+      // reload data for product page 
+      fetchProds();
+    }
     else alert("some error occured");
   }
 
