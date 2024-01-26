@@ -298,8 +298,9 @@ const VisuallyHiddenInput = styled("input")({
                 --Select category--
               </MenuItem>
               <MenuItem value={"mobile"}>mobile</MenuItem>
-              <MenuItem value={"Twenty"}>Twenty</MenuItem>
-              <MenuItem value={"Thirty"}>Thirty</MenuItem>
+              <MenuItem value={"laptop"}>Laptop</MenuItem>
+              <MenuItem value={"headph"}>Head Phone</MenuItem>
+              <MenuItem value={"watch"}>Watch</MenuItem>
             </Select>
           {/* </Box> */}
 
