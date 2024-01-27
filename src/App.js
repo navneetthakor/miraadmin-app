@@ -20,6 +20,7 @@ import { themeSettings } from "./theme";
 import Customers from "./scens/Customers.js";
 import Transactions from "./scens/Transactions.js";
 import AddProduct from "./scens/AddProduct.js";
+import UpdateProduct from "./scens/UpdateProduct.js"
 
 // ------------ Main Function -------------
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route exact path="/Customers" element={<Customers/>}/>
         <Route exact path="/Transaction" element={<Transactions/>}/>
         <Route exact path="/AddProduct" element={<AddProduct/>}/>
+        <Route exact path="/UpdateProduct" element={<UpdateProduct/>}/>
         <Route path="*" element={<Home/>}/>
       </Route>
     )

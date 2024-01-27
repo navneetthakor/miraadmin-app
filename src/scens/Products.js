@@ -4,6 +4,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import FlexBetween from "../components/FlexBetween";
 import { Add, Delete, KeyboardArrowDownOutlined } from "@mui/icons-material";
 import ProductContext from "../context/ProductContext";
+import UpdateProductContext from "../context/UpdateProductContext";
 
 export default function Products() {
   // to get props provided to outlet component in rootLayout
@@ -17,6 +18,9 @@ export default function Products() {
 
   // to get products form ProductContext
   const { prods, isProdsAvilable, setProds } = useContext(ProductContext);
+
+  // to send product for updation 
+  const {setUpdateProd} = useContext(UpdateProductContext);
 
   // when click on delete button 
   // const btnRef = useRef(null);
@@ -169,13 +173,12 @@ export default function Products() {
                     variant="contained"
                     sx={{
                       fontWeight: "bolder",
-                      // marginTop: `${isNonMobile ? "15px" : "5%"}`,
                       backgroundColor: theme.palette.secondary[500],
                       color: theme.palette.background.default,
                       height: "35px",
                       width: "70px",
-                      // marginLeft: `${isNonMobile ? "10%" : "inherite"}`,
                     }}
+                    onClick={() => { setUpdateProd(iteam); navigate('/UpdateProduct')}}
                   >
                     view
                   </Button>

@@ -7,6 +7,8 @@ import ProductContext from "../context/ProductContext";
 import CustomerContext from "../context/CustomerContext";
 import TransactionContext from "../context/TransactionContext";
 import { useTheme } from "@emotion/react";
+import { Update } from "@mui/icons-material";
+import UpdateProductContext from "../context/UpdateProductContext";
 
 export default function RootLayout() {
   //to get theme object
@@ -73,7 +75,11 @@ export default function RootLayout() {
   useEffect(() => {
     fetchCustomers();
     fetchProds();
-  },[theme]);
+  }, [theme]);
+
+  // ---------------------------------for UpdateProduct.js ------------------------------------
+  // to store single product which user wants to Update
+  const [updateProd, setUpdateProd] = useState(null);
 
   // --------------------------------------actual returning value -------------------------------------
   return (
@@ -90,12 +96,14 @@ export default function RootLayout() {
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
-        <ProductContext.Provider value={{ prods, isProdsAvilable,setProds ,fetchProds }}>
-          <CustomerContext.Provider value={{ customers, isCustomersAvailable }}>
-            <TransactionContext.Provider value={{transactions, isTransactionsAvailable}}>
-              <Outlet context={isNonMobile} />
-            </TransactionContext.Provider>
-          </CustomerContext.Provider>
+        <ProductContext.Provider value={{ prods, isProdsAvilable, setProds, fetchProds }}>
+          <UpdateProductContext.Provider value={{ updateProd, setUpdateProd }}>
+            <CustomerContext.Provider value={{ customers, isCustomersAvailable }}>
+              <TransactionContext.Provider value={{ transactions, isTransactionsAvailable }}>
+                <Outlet context={isNonMobile} />
+              </TransactionContext.Provider>
+            </CustomerContext.Provider>
+          </UpdateProductContext.Provider>
         </ProductContext.Provider>
       </Box>
     </Box>
