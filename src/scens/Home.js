@@ -3,6 +3,7 @@ import {
   Box,
   Card,
   CardContent,
+  Grow,
   Table,
   TableBody,
   TableCell,
@@ -48,9 +49,19 @@ const cards = [
 ];
 
 // for line chart
-const Sales = [20, 50, 35, 25, 20, 30, 32];
-const Orders = [2, 6, 3, 2, 3, 3, 4];
-const xLabels = ["March", "April", "May", "Jun", "July", "August", "September"];
+const Sales = [35, 60, 20, 20, 35, 25, 20, 30, 32];
+const Orders = [5, 9, 6, 3, 5, 3, 3, 6, 7];
+const xLabels = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "Jun",
+  "July",
+  "August",
+  "September",
+];
 
 // for table of piechart
 const pietableRows = [
@@ -77,68 +88,72 @@ const pietableRows = [
 ];
 
 export default function Home(props) {
+  let tt = 0;
   const theme = useTheme();
   const isNonMobile = useOutletContext();
 
   //  to put the cards
   const putCards = cards.map((iteam) => {
+    tt += 500;
     return (
-      <Card
-      key={iteam.header}
-        sx={{
-          backgroundColor: `${
-            iteam.tag === "none"
-              ? "rgba(255, 255, 255, 0.5)"
-              : theme.palette.background.alt
-          }`,
-          color: `${
-            iteam.tag === "none" ? theme.palette.primary[500] : "inherite"
-          }`,
-        }}
-      >
-        <CardContent>
-          <FlexBetween>
-            <Typography variant="h4">{iteam.header}</Typography>
-            {iteam.tag !== "none" && (
+      <Grow in="true" timeout={tt}>
+        <Card
+          key={iteam.header}
+          sx={{
+            backgroundColor: `${
+              iteam.tag === "none"
+                ? "rgba(255, 255, 255, 0.5)"
+                : theme.palette.background.alt
+            }`,
+            color: `${
+              iteam.tag === "none" ? theme.palette.primary[500] : "inherite"
+            }`,
+          }}
+        >
+          <CardContent>
+            <FlexBetween>
+              <Typography variant="h4">{iteam.header}</Typography>
+              {iteam.tag !== "none" && (
+                <Typography
+                  sx={{
+                    backgroundColor: "#1E90FF",
+                    padding: "0% 2%",
+                    borderRadius: "5px",
+                  }}
+                >
+                  {iteam.tag}
+                </Typography>
+              )}
+            </FlexBetween>
+
+            <Typography variant="h2" sx={{ m: "2% 0%" }}>
+              {iteam.amount}
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "5%",
+              }}
+            >
               <Typography
                 sx={{
-                  backgroundColor: "#1E90FF",
+                  backgroundColor: `${
+                    iteam.profitLose < 0
+                      ? "rgba(255,69,0,0.4)"
+                      : "rgba(50, 205, 50,0.4)"
+                  }`,
                   padding: "0% 2%",
                   borderRadius: "5px",
                 }}
               >
-                {iteam.tag}
+                {iteam.profitLose}%
               </Typography>
-            )}
-          </FlexBetween>
-
-          <Typography variant="h2" sx={{ m: "2% 0%" }}>
-            {iteam.amount}
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "5%",
-            }}
-          >
-            <Typography
-              sx={{
-                backgroundColor: `${
-                  iteam.profitLose < 0
-                    ? "rgba(255,69,0,0.4)"
-                    : "rgba(50, 205, 50,0.4)"
-                }`,
-                padding: "0% 2%",
-                borderRadius: "5px",
-              }}
-            >
-              {iteam.profitLose}%
-            </Typography>
-            <Typography>Since last month</Typography>
-          </Box>
-        </CardContent>
-      </Card>
+              <Typography>Since last month</Typography>
+            </Box>
+          </CardContent>
+        </Card>
+      </Grow>
     );
   });
 
@@ -209,34 +224,38 @@ export default function Home(props) {
         }}
       >
         {/* linechart  */}
-        <Box
-          sx={{
-            width: `${isNonMobile ? "65%" : "100%"}`,
-            height: 500,
-            backgroundColor: theme.palette.background.alt,
-            borderRadius: "5px",
-          }}
-        >
-          <Typography variant="h4" sx={{ p: "10px 15px" }}>
-            Total Revenue
-          </Typography>
-          <LineChart
-            xAxis={[{ scaleType: "point", data: xLabels }]}
-            series={[
-              {
-                data: Sales,
-                label: "Sales",
-              },
-              {
-                data: Orders,
-                label: "Orders",
-              },
-            ]}
-            height={455}
-          />
-        </Box>
+        
+        <Grow in="true" timeout={tt += 500}>
+          <Box
+            sx={{
+              width: `${isNonMobile ? "65%" : "100%"}`,
+              height: 500,
+              backgroundColor: theme.palette.background.alt,
+              borderRadius: "5px",
+            }}
+          >
+            <Typography variant="h4" sx={{ p: "10px 15px" }}>
+              Total Revenue
+            </Typography>
+            <LineChart
+              xAxis={[{ scaleType: "point", data: xLabels }]}
+              series={[
+                {
+                  data: Sales,
+                  label: "Sales",
+                },
+                {
+                  data: Orders,
+                  label: "Orders",
+                },
+              ]}
+              height={455}
+            />
+          </Box>
+        </Grow>
 
         {/* piechart  */}
+        <Grow in="true" timeout={tt += 500}>
         <Box
           sx={{
             width: `${isNonMobile ? "30%" : "100%"}`,
@@ -296,22 +315,22 @@ export default function Home(props) {
             </TableContainer>
           </Box>
         </Box>
+      </Grow>
       </Box>
-
       {/* barChart and table  */}
       <Box
-      sx={{
-        height: "500px",
-        width: "100%",
-        marginBottom: "5%",
-        backgroundColor: theme.palette.background.alt,
-      }}
+        sx={{
+          height: "500px",
+          width: "100%",
+          marginBottom: "5%",
+          backgroundColor: theme.palette.background.alt,
+        }}
       >
-        <Typography variant="h4" sx={{ p: "10px 15px"}}>
-            Mobile/Desktop
-          </Typography>
+        <Typography variant="h4" sx={{ p: "10px 15px" }}>
+          Mobile/Desktop
+        </Typography>
         <BarChart
-        height={455}
+          height={455}
           series={[
             { data: Sales, label: "Mobile", id: "pvId", stack: "total" },
             { data: Orders, label: "Desktop", id: "uvId", stack: "total" },
