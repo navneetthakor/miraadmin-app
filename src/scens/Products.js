@@ -5,6 +5,7 @@ import FlexBetween from "../components/FlexBetween";
 import { Add, Delete, KeyboardArrowDownOutlined } from "@mui/icons-material";
 import ProductContext from "../context/ProductContext";
 import UpdateProductContext from "../context/UpdateProductContext";
+import Header from "../components/Header";
 
 export default function Products() {
   // to get props provided to outlet component in rootLayout
@@ -56,6 +57,7 @@ export default function Products() {
       }}
     >
       {/* header of Products page  */}
+      {/* <Header   primHeader="Products" secHeader="List Of Products"/> */}
       <Box
         sx={{
           paddingBottom: `${isNonMobile ? "3%" : "7%"}`,

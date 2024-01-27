@@ -14,6 +14,7 @@ import {
 import React, { useContext, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import ProductContext from "../context/ProductContext";
+import Header from "../components/Header";
 
 
 export default function AddProduct() {
@@ -175,28 +176,9 @@ const VisuallyHiddenInput = styled("input")({
         padding: "3%",
       }}
     >
+      
       {/* header of page  */}
-      <Box
-        sx={{
-          borderBottom: "1px solid",
-          borderColor: "divider",
-          paddingBottom: "20px",
-          display: `${isNonMobile ? "inherite" : "flex"}`,
-          flexDirection: `${isNonMobile ? "inherite" : "column"}`,
-          justifyContent: `${isNonMobile ? "inherite" : "center"}`,
-          alignItems: `${isNonMobile ? "inherite" : "center"}`,
-        }}
-      >
-        <Typography variant="h1">Add Product</Typography>
-        <Typography
-          variant="h4"
-          sx={{
-            color: theme.palette.secondary[300],
-          }}
-        >
-          All the fields are required!
-        </Typography>
-      </Box>
+      <Header primHeader="Add Product" secHeader="All the fields are required!" />
 
       {/* image and major fields */}
       <Box
@@ -372,6 +354,7 @@ const VisuallyHiddenInput = styled("input")({
             {uploadedImages?.length <= 0 && <Add />}
 
             {uploadedImages?.map((iteam) => {
+
               const url = URL.createObjectURL(iteam[0]);
               return (
                 <ImageListItem key={url} sx={{ overflow: "hidden" }}>
