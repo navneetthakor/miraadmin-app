@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import FlexBetween from "../components/FlexBetween";
@@ -16,7 +16,7 @@ export default function Products() {
   const navigate = useNavigate();
 
   // to get products form ProductContext
-  const { prods, isProdsAvilable, fetchProds } = useContext(ProductContext);
+  const { prods, isProdsAvilable, setProds } = useContext(ProductContext);
 
   // when click on delete button 
   // const btnRef = useRef(null);
@@ -30,10 +30,13 @@ export default function Products() {
     })
 
     const data = await response.json();
-    console.log(data);
+
     if(data.signal === "green") {
       alert("succesfull");
-      fetchProds();
+      
+      // to remove current product from product array 
+      const data = prods?.filter((iteam) => {return iteam._id !== id});
+      setProds(data);
     }
     else alert("some error occured");
   }

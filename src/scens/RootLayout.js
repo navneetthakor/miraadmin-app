@@ -90,7 +90,7 @@ export default function RootLayout() {
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
-        <ProductContext.Provider value={{ prods, isProdsAvilable, fetchProds }}>
+        <ProductContext.Provider value={{ prods, isProdsAvilable,setProds ,fetchProds }}>
           <CustomerContext.Provider value={{ customers, isCustomersAvailable }}>
             <TransactionContext.Provider value={{transactions, isTransactionsAvailable}}>
               <Outlet context={isNonMobile} />

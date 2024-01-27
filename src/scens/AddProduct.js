@@ -38,11 +38,9 @@ export default function AddProduct() {
 
   const handleTitleChange = (event) =>{
      setObject({...object, title: event.target.value});
-    console.log(object);
   }
   const handleCompanyChange = (event) =>{
     setObject({...object, company: event.target.value});
-    console.log(object);
   }
   const handleModelChange = (event) =>{
     setObject({...object, model: event.target.value});
@@ -160,7 +158,6 @@ const VisuallyHiddenInput = styled("input")({
     })
 
     const data = await response.json();
-    console.log(data);
 
     // if succussfull 
     if(data.signal === "green") {
@@ -231,6 +228,7 @@ const VisuallyHiddenInput = styled("input")({
               return (
                 <Box
                   sx={{
+                    flexGrow: "1",
                     background: "transparent",
                     display: "flex",
                     flexDirection: "row",
@@ -240,6 +238,7 @@ const VisuallyHiddenInput = styled("input")({
                 >
                   <Box
                     sx={{
+                      flexGrow: "1",
                       display: "flex",
                       flexDirection: "column",
                     }}
@@ -257,6 +256,7 @@ const VisuallyHiddenInput = styled("input")({
 
                   <Box
                     sx={{
+                      flexGrow:"1",
                       display: "flex",
                       flexDirection: "column",
                     }}
@@ -372,7 +372,6 @@ const VisuallyHiddenInput = styled("input")({
             {uploadedImages?.length <= 0 && <Add />}
 
             {uploadedImages?.map((iteam) => {
-              console.log(iteam);
               const url = URL.createObjectURL(iteam[0]);
               return (
                 <ImageListItem key={url} sx={{ overflow: "hidden" }}>
