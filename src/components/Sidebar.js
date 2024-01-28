@@ -11,6 +11,7 @@ import {
   useTheme,
   Avatar,
   DialogTitle,
+  Grow,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom"; 
 
@@ -80,6 +81,7 @@ const sidebarIteam = [
 ];
 
 export default function Sidebar(props) {
+  let tt = 0;
   // destructuring the provided props
   const { isSidebarOpen, OuterDrawerWidth, setIsSidebarOpen, isNonMobile } =
     props;
@@ -169,6 +171,7 @@ export default function Sidebar(props) {
                   }
 
                   return (
+                    <Grow in="true" timeout={tt += 500}>
                     <ListItem>
                       <ListItemButton
                         onClick={() => {
@@ -202,6 +205,7 @@ export default function Sidebar(props) {
 
                       {active === iteam.text && <ChevronRightOutlined />}
                     </ListItem>
+                    </Grow>
                   );
                 })}
               </List>
