@@ -103,11 +103,15 @@ export default function Home(props) {
             backgroundColor: `${
               iteam.tag === "none"
                 ? "rgba(255, 255, 255, 0.5)"
-                : theme.palette.background.alt
+                : theme.palette.primary[800]
             }`,
             color: `${
               iteam.tag === "none" ? theme.palette.primary[500] : "inherite"
             }`,
+            boxShadow: `1px 1px 10px ${theme.palette.background.alt} `,
+            ':hover': {
+              boxShadow: `1px 1px 3px 3px ${theme.palette.background.alt} `
+            }
           }}
         >
           <CardContent>
@@ -230,8 +234,8 @@ export default function Home(props) {
             sx={{
               width: `${isNonMobile ? "65%" : "100%"}`,
               height: 500,
-              backgroundColor: theme.palette.background.alt,
               borderRadius: "5px",
+              background: theme.palette.background.alt
             }}
           >
             <Typography variant="h4" sx={{ p: "10px 15px" }}>

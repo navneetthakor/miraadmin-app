@@ -4,6 +4,7 @@ import { CloudUpload} from "@mui/icons-material";
 import {
   Box,
   Button,
+  Grow,
   ImageList,
   MenuItem,
   Select,
@@ -17,6 +18,7 @@ import UpdateProductContext from "../context/UpdateProductContext";
 
 
 export default function AddProduct() {
+  let tt = 0;
   // ---------------------------------to get whether divice is mobile or not
   const isNonMobile = useOutletContext();
 
@@ -215,6 +217,7 @@ const VisuallyHiddenInput = styled("input")({
         }}
       >
         {/* title and all other things  */}
+        <Grow in="true" timeout={tt += 500}>
         <Box
           width={`${isNonMobile ? "40%" : "80%"}`}
           height={`${isNonMobile ? "500px" : "inherite"}`}
@@ -345,8 +348,10 @@ const VisuallyHiddenInput = styled("input")({
             />
           </Box>
         </Box>
+        </Grow>
 
         {/* images  */}
+        <Grow in="true" timeout={tt += 500}>
         <Box
           width={`${isNonMobile ? "40%" : "80%"}`}
           height="500px"
@@ -417,6 +422,7 @@ const VisuallyHiddenInput = styled("input")({
             <VisuallyHiddenInput type="file" />
           </Button>
         </Box>
+        </Grow>
       </Box>
 
       {/* Bottom buttons  */}

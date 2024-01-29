@@ -21,6 +21,7 @@ import Customers from "./scens/Customers.js";
 import Transactions from "./scens/Transactions.js";
 import AddProduct from "./scens/AddProduct.js";
 import UpdateProduct from "./scens/UpdateProduct.js"
+import Products2 from "./scens/Products2.js";
 
 // ------------ Main Function -------------
 function App() {
@@ -34,9 +35,10 @@ function App() {
       <Route exact path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
         <Route exact path="/Dashboard" element={<Home/>}/>
-        <Route exact path="/Products" element={<Products/>}/>
+        <Route exact path="/Products" element={<Products2/>}/>
         <Route exact path="/Customers" element={<Customers/>}/>
         <Route exact path="/Transaction" element={<Transactions/>}/>
+        <Route exact path="/Geography" element={<Products/>}/>
         <Route exact path="/AddProduct" element={<AddProduct/>}/>
         <Route exact path="/UpdateProduct" element={<UpdateProduct/>}/>
         <Route path="*" element={<Home/>}/>
