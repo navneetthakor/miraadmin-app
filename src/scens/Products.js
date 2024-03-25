@@ -127,10 +127,11 @@ export default function Products() {
                       height: "70px",
                       width: "70px",
                       border: "1px solid lightgray",
+                      backgroundColor: "white",
                       borderRadius: "8px",
                       overflow: "hidden",
                     }}
-                    src={`http://localhost:5000/${iteam.images[0]}`.replace(
+                    src={`${process.env.REACT_APP_MY_IP}/${iteam.images[0]}`.replace(
                       /\\/g,
                       "/"
                     )}

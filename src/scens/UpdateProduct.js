@@ -28,76 +28,54 @@ export default function AddProduct() {
 //   to get data provided by view button 
 const { updateProd, setUpdateProd} = useContext(UpdateProductContext);
 
-  // ---------------------------------to update values 
-  const handleTitleChange = (event) =>{
-     setUpdateProd({...updateProd, title: event.target.value});
-  }
-  const handleCompanyChange = (event) =>{
-    setUpdateProd({...updateProd, company: event.target.value});
-  }
-  const handleModelChange = (event) =>{
-    setUpdateProd({...updateProd, model: event.target.value});
-  }
-  const handleHeightChange = (event) =>{
-    setUpdateProd({...updateProd, height: event.target.value});
-  }
-  const handleWidthChange = (event) =>{
-    setUpdateProd({...updateProd, width: event.target.value});
-  }
-  const handlePriceChange = (event) =>{
-    setUpdateProd({...updateProd, price: event.target.value});
-  }
-  const handleDummyPriceChange = (event) =>{
-    setUpdateProd({...updateProd, dummyPrice: event.target.value});
-  }
-  const handleCategoryChange = (event) =>{
-    setUpdateProd({...updateProd, category: event.target.value});
-  }
-  const handleDescriptionChange = (event) =>{
-    setUpdateProd({...updateProd, description: event.target.value});
-  }
+  // ---------------------------------to update values
+  const handleProductUpdate = (event) => {
+    setUpdateProd({...updateProd, [event.target.name]: event.target.value});
+  } 
 
   //--------------------------------- array for displaing required fields
 const fieldArray = [
   {
     dobule: false,
-    name: "Title",
-    placeholder: "vivo T2 5G Pro...",
+    name: "title",
     value: updateProd.title,
-    onChange: handleTitleChange
+    placeholder: "vivo T2 5G Pro...",
   },
   {
     dobule: true,
     name1: "company",
-    placeholder1: "vivo...",
     value1: updateProd.company,
-    onChange1: handleCompanyChange,
-    name2: "model",
-    placeholder2: "T2 5G pro...",
-    value2: updateProd.model,
-    onChange2: handleModelChange
+    placeholder1: "vivo...",
+    name2: "sku",
+    value2: updateProd.sku,
+    placeholder2: "#mobVivo01",
   },
   {
     dobule: true,
-    name1: "height",
-    placeholder1: "6.5 inches",
-    value1: updateProd.height,
-    onChange1: handleHeightChange,
-    name2: "width",
-    placeholder2: "4.5 inches",
-    value2: updateProd.width,
-    onChange2: handleWidthChange
+    name1: "dimension",
+    value1: updateProd.dimension,
+    placeholder1: "6.5 * 4.3 * 0.5",
+    name2: "weight",
+    value2: updateProd.weight,
+    placeholder2: "180",
   },
   {
     dobule: true,
-    name1: "price",
-    placeholder1: "499",
-    value1: updateProd.price,
-    onChange1: handlePriceChange,
-    name2: "DummyPrice",
-    placeholder2: "799",
-    value2: updateProd.dummyPrice,
-    onChange2: handleDummyPriceChange
+    name1: "mrp",
+    value1: updateProd.mrp,
+    placeholder1: "799",
+    name2: "sellprice",
+    value2: updateProd.sellprice,
+    placeholder2: "499",
+  },
+  {
+    dobule: true,
+    name1: "stock",
+    value1: updateProd.stock,
+    placeholder1: "123",
+    name2: "soldstock",
+    value2: updateProd.soldstock,
+    placeholder2: "11",
   },
 ];
 
@@ -151,7 +129,7 @@ const VisuallyHiddenInput = styled("input")({
     const bodyData = JSON.stringify(updateProd);
 
     // url to perform operation 
-    const url = `${process.env.REACT_APP_MY_IP}/storeproducts/updateprod/${updateProd._id}`
+    const url = `${process.env.REACT_APP_MY_IP}/product/updateprod/${updateProd._id}`
     const response = await fetch(url, {
       method: "PUT",
       headers: {
@@ -220,7 +198,6 @@ const VisuallyHiddenInput = styled("input")({
         <Grow in="true" timeout={tt += 500}>
         <Box
           width={`${isNonMobile ? "40%" : "80%"}`}
-          height={`${isNonMobile ? "500px" : "inherite"}`}
           boxShadow={true}
           sx={{
             display: "flex",
@@ -259,7 +236,7 @@ const VisuallyHiddenInput = styled("input")({
                       }}
                       placeholder={iteam.placeholder1}
                       value={iteam.value1}
-                      onChange={iteam.onChange1}
+                      onChange={handleProductUpdate}
                     />
                   </Box>
 
@@ -278,7 +255,7 @@ const VisuallyHiddenInput = styled("input")({
                       }}
                       placeholder={iteam.placeholder2}
                       value={iteam.value2}
-                      onChange={iteam.onChange2}
+                      onChange={handleProductUpdate}
                     />
                   </Box>
                 </Box>
@@ -302,7 +279,7 @@ const VisuallyHiddenInput = styled("input")({
                   }}
                   placeholder={iteam.placeholder}
                   value={iteam.value}
-                  onChange={iteam.onChange}
+                  onChange={handleProductUpdate}
                 />
               </Box>
             );
@@ -314,7 +291,7 @@ const VisuallyHiddenInput = styled("input")({
             size="small"
             sx={{ marginTop: "5px"}} 
              value={updateProd.category} 
-             onChange={handleCategoryChange}>
+             onChange={handleProductUpdate}>
               <MenuItem disabled value=" ">
                 --Select category--
               </MenuItem>
@@ -336,7 +313,7 @@ const VisuallyHiddenInput = styled("input")({
           >
             <Typography>Description</Typography>
             <TextField
-            onChange={handleDescriptionChange}
+            onChange={handleProductUpdate}
               size="small"
               rows={3}
               multiline="true"
@@ -344,7 +321,7 @@ const VisuallyHiddenInput = styled("input")({
                 marginTop: "5px",
               }}
               placeholder="Add description"
-              value={updateProd.description}
+              value={updateProd.desc}
             />
           </Box>
         </Box>
@@ -354,7 +331,6 @@ const VisuallyHiddenInput = styled("input")({
         <Grow in="true" timeout={tt += 500}>
         <Box
           width={`${isNonMobile ? "40%" : "80%"}`}
-          height="500px"
           sx={{
             backgroundColor: theme.palette.background.alt,
             borderRadius: "8px",
@@ -386,7 +362,7 @@ const VisuallyHiddenInput = styled("input")({
 
             {
                 updateProd.images.map((iteam) =>{
-                    return <img src={`${process.env.REACT_APP_MY_IP}/${iteam}`.replace(/\\/g, "/")} height="100%" width="100%" alt=""/>
+                  return <img src={`${process.env.REACT_APP_MY_IP}/${iteam}`.replace(/\\/g, "/")} height="100%" width="100%" alt=""/>
                 })
             }
             {/* {uploadedImages?.length <= 0 && <Add />}

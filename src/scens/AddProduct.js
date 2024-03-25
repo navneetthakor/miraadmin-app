@@ -37,68 +37,45 @@ export default function AddProduct() {
     description: ""
   })
 
-  const handleTitleChange = (event) =>{
-     setObject({...object, title: event.target.value});
-  }
-  const handleCompanyChange = (event) =>{
-    setObject({...object, company: event.target.value});
-  }
-  const handleModelChange = (event) =>{
-    setObject({...object, model: event.target.value});
-  }
-  const handleHeightChange = (event) =>{
-    setObject({...object, height: event.target.value});
-  }
-  const handleWidthChange = (event) =>{
-    setObject({...object, width: event.target.value});
-  }
-  const handlePriceChange = (event) =>{
-    setObject({...object, price: event.target.value});
-  }
-  const handleDummyPriceChange = (event) =>{
-    setObject({...object, dummyPrice: event.target.value});
-  }
-  const handleCategoryChange = (event) =>{
-    setObject({...object, category: event.target.value});
-  }
-  const handleDescriptionChange = (event) =>{
-    setObject({...object, description: event.target.value});
+  const handleObjectChange = (event) => {
+    setObject({...object, [event.target.name]: event.target.value});
+    console.log(object);
   }
 
   //--------------------------------- array for displaing required fields
 const fieldArray = [
   {
     dobule: false,
-    name: "Title",
+    name: "title",
     placeholder: "vivo T2 5G Pro...",
-    onChange: handleTitleChange
   },
   {
     dobule: true,
     name1: "company",
     placeholder1: "vivo...",
-    onChange1: handleCompanyChange,
-    name2: "model",
-    placeholder2: "T2 5G pro...",
-    onChange2: handleModelChange
+    name2: "sku",
+    placeholder2: "#mobVivo01",
   },
   {
     dobule: true,
-    name1: "height",
-    placeholder1: "6.5 inches",
-    onChange1: handleHeightChange,
-    name2: "width",
-    placeholder2: "4.5 inches",
-    onChange2: handleWidthChange
+    name1: "dimension",
+    placeholder1: "6.5 * 4.3 * 0.5",
+    name2: "weight",
+    placeholder2: "180",
   },
   {
     dobule: true,
-    name1: "price",
-    placeholder1: "499",
-    onChange1: handlePriceChange,
-    name2: "DummyPrice",
-    placeholder2: "799",
-    onChange2: handleDummyPriceChange
+    name1: "mrp",
+    placeholder1: "799",
+    name2: "sellprice",
+    placeholder2: "499",
+  },
+  {
+    dobule: true,
+    name1: "stock",
+    placeholder1: "123",
+    name2: "soldstock",
+    placeholder2: "11",
   },
 ];
 
@@ -232,7 +209,7 @@ const VisuallyHiddenInput = styled("input")({
                         marginTop: "5px",
                       }}
                       placeholder={iteam.placeholder1}
-                      onChange={iteam.onChange1}
+                      onChange={handleObjectChange}
                     />
                   </Box>
 
@@ -250,7 +227,7 @@ const VisuallyHiddenInput = styled("input")({
                         marginTop: "5px",
                       }}
                       placeholder={iteam.placeholder2}
-                      onChange={iteam.onChange2}
+                      onChange={handleObjectChange}
                     />
                   </Box>
                 </Box>
@@ -273,7 +250,7 @@ const VisuallyHiddenInput = styled("input")({
                     marginTop: "5px",
                   }}
                   placeholder={iteam.placeholder}
-                  onChange={iteam.onChange}
+                  onChange={handleObjectChange}
                 />
               </Box>
             );
@@ -285,7 +262,7 @@ const VisuallyHiddenInput = styled("input")({
             size="small"
             sx={{ marginTop: "5px"}} 
              value={object.category} 
-             onChange={handleCategoryChange}>
+             onChange={handleObjectChange}>
               <MenuItem disabled value=" ">
                 --Select category--
               </MenuItem>
@@ -307,7 +284,7 @@ const VisuallyHiddenInput = styled("input")({
           >
             <Typography>Description</Typography>
             <TextField
-            onChange={handleDescriptionChange}
+            onChange={handleObjectChange}
               size="small"
               rows={3}
               multiline="true"

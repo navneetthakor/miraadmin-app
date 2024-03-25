@@ -9,7 +9,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 import React, { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
@@ -27,6 +26,7 @@ export default function Customers() {
 
   // geting values form CustomerContext
   const { customers, isCustomersAvailable } = useContext(CustomerContext);
+  console.log(customers);
 
   return (
     <Box
@@ -59,7 +59,7 @@ export default function Customers() {
                 <TableBody
                   sx={{ backgroundColor: theme.palette.background.default }}
                 >
-                  {customers.map((iteam) => {
+                  {customers?.map((iteam) => {
                     return (
                       <TableRow key={iteam._id}>
                         <TableCell>{iteam._id}</TableCell>

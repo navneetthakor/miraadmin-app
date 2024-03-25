@@ -26,13 +26,13 @@ export default function RootLayout() {
   const [isCustomersAvailable, setIsCustomersAvailable] = useState(false);
   // to fetch customers from backend
   const fetchCustomers = async () => {
-    const url = `${process.env.REACT_APP_MY_IP}/users/getallcustomers`;
+    const url = `${process.env.REACT_APP_MY_IP}/customer/getallcustomers`;
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         authtoken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1ODVkODQ5YTUzZTMxNDlmOTU3ZTQ4NCJ9LCJpYXQiOjE3MDU4MzYzODJ9.bu03gBUwo0CEUwO1Om9MTVPk5SG0eh9QmdESQ14n-Hw",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1ZGY3MjJjOGNjNjdhMTQ0N2IzOWJmNiJ9LCJpYXQiOjE3MTEzODk1MzZ9.QMKH6pujGQ3g5B_vC5VKxr9TM7SAJY1kzbeZPuAUakc"
       },
     });
     const data = await response.json();
@@ -48,7 +48,7 @@ export default function RootLayout() {
 
   // function to fetched the products
   const fetchProds = async () => {
-    const url = `${process.env.REACT_APP_MY_IP}/storeproducts/fetchallprods`;
+    const url = `${process.env.REACT_APP_MY_IP}/product/fetchallprods`;
     const response = await fetch(url, {
       method: "POST",
       headers: {
