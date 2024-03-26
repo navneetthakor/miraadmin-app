@@ -28,13 +28,15 @@ export default function AddProduct() {
   const [object, setObject] = useState({
     title: "",
     company: "",
-    model:"",
-    height:"",
-    width: "",
-    price: "",
-    dummyPrice: "",
+    dimension:"",
+    weight:"",
+    mrp: "",
+    sellprice: "",
+    sku: "",
+    stock: "",
+    desc: "",
+    soldstock: "",
     category: "",
-    description: ""
   })
 
   const handleObjectChange = (event) => {
@@ -126,11 +128,11 @@ const VisuallyHiddenInput = styled("input")({
     }
 
     // url to perform operation 
-    const url = `${process.env.REACT_APP_MY_IP}/storeproducts/addprod`
+    const url = `${process.env.REACT_APP_MY_IP}/product/addprod`
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        "authtoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1YjM5YWE5MzUyNGE5NmQ4YWM1MGU0YSJ9LCJpYXQiOjE3MDYyNzA0MjZ9.oYKh0yUvilGRpJAHwz2vknTJC875Q3d7JmzgYTLAIYk"
+        "authtoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1ZGY3MjJjOGNjNjdhMTQ0N2IzOWJmNiJ9LCJpYXQiOjE3MTE0NDg5ODV9.tj6Fo5UBl3N2DbON6QdQtr0DDOxAe2ZNCLlIxo4hxIg"
       },
       body: formData
     })
@@ -171,7 +173,6 @@ const VisuallyHiddenInput = styled("input")({
         {/* title and all other things  */}
         <Box
           width={`${isNonMobile ? "40%" : "80%"}`}
-          height={`${isNonMobile ? "500px" : "inherite"}`}
           boxShadow={true}
           sx={{
             display: "flex",
@@ -204,6 +205,7 @@ const VisuallyHiddenInput = styled("input")({
                   >
                     <Typography>{iteam.name1}</Typography>
                     <TextField
+                    name={iteam.name1}
                       size="small"
                       sx={{
                         marginTop: "5px",
@@ -222,6 +224,7 @@ const VisuallyHiddenInput = styled("input")({
                   >
                     <Typography>{iteam.name2}</Typography>
                     <TextField
+                      name={iteam.name2}
                       size="small"
                       sx={{
                         marginTop: "5px",
@@ -245,6 +248,7 @@ const VisuallyHiddenInput = styled("input")({
               >
                 <Typography>{iteam.name}</Typography>
                 <TextField
+                  name={iteam.name}
                   size="small"
                   sx={{
                     marginTop: "5px",
@@ -259,6 +263,7 @@ const VisuallyHiddenInput = styled("input")({
           {/* Category dropdown  */}
           <Typography sx={{marginTop: "3%"}}>Category</Typography>
             <Select
+            name="category"
             size="small"
             sx={{ marginTop: "5px"}} 
              value={object.category} 
@@ -284,6 +289,7 @@ const VisuallyHiddenInput = styled("input")({
           >
             <Typography>Description</Typography>
             <TextField
+            name="desc"
             onChange={handleObjectChange}
               size="small"
               rows={3}
@@ -299,7 +305,6 @@ const VisuallyHiddenInput = styled("input")({
         {/* images  */}
         <Box
           width={`${isNonMobile ? "40%" : "80%"}`}
-          height="500px"
           sx={{
             backgroundColor: theme.palette.background.alt,
             borderRadius: "8px",

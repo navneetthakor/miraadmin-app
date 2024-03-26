@@ -134,7 +134,7 @@ const VisuallyHiddenInput = styled("input")({
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "authtoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1YjM5YWE5MzUyNGE5NmQ4YWM1MGU0YSJ9LCJpYXQiOjE3MDYyNzA0MjZ9.oYKh0yUvilGRpJAHwz2vknTJC875Q3d7JmzgYTLAIYk"
+        "authtoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1ZGY3MjJjOGNjNjdhMTQ0N2IzOWJmNiJ9LCJpYXQiOjE3MTE0NDg5ODV9.tj6Fo5UBl3N2DbON6QdQtr0DDOxAe2ZNCLlIxo4hxIg"
       },
       body: bodyData
     })
@@ -230,6 +230,7 @@ const VisuallyHiddenInput = styled("input")({
                   >
                     <Typography>{iteam.name1}</Typography>
                     <TextField
+                      name={iteam.name1}
                       size="small"
                       sx={{
                         marginTop: "5px",
@@ -249,6 +250,8 @@ const VisuallyHiddenInput = styled("input")({
                   >
                     <Typography>{iteam.name2}</Typography>
                     <TextField
+                      disabled= {iteam.name2 === 'sku' ? true : false}
+                      name={iteam.name2}
                       size="small"
                       sx={{
                         marginTop: "5px",
@@ -273,6 +276,7 @@ const VisuallyHiddenInput = styled("input")({
               >
                 <Typography>{iteam.name}</Typography>
                 <TextField
+                name={iteam.name}
                   size="small"
                   sx={{
                     marginTop: "5px",
@@ -289,7 +293,8 @@ const VisuallyHiddenInput = styled("input")({
           <Typography sx={{marginTop: "3%"}}>Category</Typography>
             <Select
             size="small"
-            sx={{ marginTop: "5px"}} 
+            sx={{ marginTop: "5px"}}
+            name="category"
              value={updateProd.category} 
              onChange={handleProductUpdate}>
               <MenuItem disabled value=" ">
@@ -313,6 +318,7 @@ const VisuallyHiddenInput = styled("input")({
           >
             <Typography>Description</Typography>
             <TextField
+            name="desc"
             onChange={handleProductUpdate}
               size="small"
               rows={3}
@@ -361,7 +367,7 @@ const VisuallyHiddenInput = styled("input")({
           >
 
             {
-                updateProd.images.map((iteam) =>{
+                updateProd.images?.map((iteam) =>{
                   return <img src={`${process.env.REACT_APP_MY_IP}/${iteam}`.replace(/\\/g, "/")} height="100%" width="100%" alt=""/>
                 })
             }

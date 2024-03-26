@@ -144,7 +144,7 @@ export default function Sidebar(props) {
                     borderColor: "divider",
                   }}
                 >
-                  Mira
+                  Eco
                 </DialogTitle>
 
                 {!isNonMobile && (

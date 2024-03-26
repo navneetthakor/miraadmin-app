@@ -48,12 +48,12 @@ export default function Products2() {
   // when click on delete button
   // const btnRef = useRef(null);
   const handleDeleteBtnClick = async (id) => {
-    const url = `${process.env.REACT_APP_MY_IP}/storeproducts/deleteprod/${id}`;
+    const url = `${process.env.REACT_APP_MY_IP}/product/deleteprod/${id}`;
     const response = await fetch(url, {
       method: "DELETE",
       headers: {
         authtoken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1YjM5YWE5MzUyNGE5NmQ4YWM1MGU0YSJ9LCJpYXQiOjE3MDYyNzA0MjZ9.oYKh0yUvilGRpJAHwz2vknTJC875Q3d7JmzgYTLAIYk",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1ZGY3MjJjOGNjNjdhMTQ0N2IzOWJmNiJ9LCJpYXQiOjE3MTE0NDg5ODV9.tj6Fo5UBl3N2DbON6QdQtr0DDOxAe2ZNCLlIxo4hxIg",
       },
     });
 
@@ -139,7 +139,7 @@ export default function Products2() {
                   iteam="true"
                   xs={`${isNonMobile ? 2 : 5}`}
                   width="150px"
-                  height="300px"
+                  // height="300px"
                   key={iteam._id}
                   sx={{
                     backgroundColor: theme.palette.primary[800],
@@ -176,10 +176,10 @@ export default function Products2() {
                   {/* other description  */}
                   <Box sx={{fontWeight : "bold"}} height="55%" width="90%">
                     <Typography variant="h4" sx={{fontWeight : "bold"}}>{iteam.title}</Typography>
-                    <Typography sx={{marginTop: "5px", fontWeight : "bold", color: "#08a187"}}>Available : 521</Typography>
-                    <Typography sx={{marginTop: "5px", fontWeight : "bold", color: "blue"}}>Already sold : 521</Typography>
-                    <Typography sx={{marginTop: "5px", fontWeight : "bold"}}>Market Price : {iteam.dummyPrice}</Typography>
-                    <Typography sx={{marginTop: "5px", fontWeight : "bold"}}>Sale Price : {iteam.price}</Typography>
+                    <Typography sx={{marginTop: "5px", fontWeight : "bold", color: "#08a187"}}>Available : {iteam.stock}</Typography>
+                    <Typography sx={{marginTop: "5px", fontWeight : "bold", color: "blue"}}>Already sold : {iteam.soldstock}</Typography>
+                    <Typography sx={{marginTop: "5px", fontWeight : "bold"}}>Market Price : {iteam.mrp}</Typography>
+                    <Typography sx={{marginTop: "5px", fontWeight : "bold"}}>Sale Price : {iteam.sellprice}</Typography>
                   </Box>
 
                   {/* Action buttons */}
@@ -192,6 +192,8 @@ export default function Products2() {
                         background: theme.palette.secondary[500]
                       }}
                       onClick={() => {
+                        const images = iteam.images?.filter((it) => (it !== null));
+                        iteam.images = images;
                         setUpdateProd(iteam);
                         navigate("/UpdateProduct");
                       }}
