@@ -76,7 +76,6 @@ export default function Products2() {
         backgroundColor: theme.palette.background,
         flexDirection: `${isNonMobile ? "column" : "column"}`,
         padding: "5% 7%",
-        height: "500px",
       }}
     >
       {/* header of Products page  */}
