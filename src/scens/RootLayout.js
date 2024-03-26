@@ -36,8 +36,10 @@ export default function RootLayout() {
       },
     });
     const data = await response.json();
-    setCustomers(data);
-    if (data) setIsCustomersAvailable(true);
+    if (data) {
+      setCustomers(data);
+      setIsCustomersAvailable(true);
+    }
   };
 
   // ---------------------------For Product.js-----------------------
@@ -56,9 +58,8 @@ export default function RootLayout() {
       },
     });
     const data = await response.json();
-    console.log(data);
     if (data) {
-      data.reverse();
+      // data.reverse();
       setProds(data);
       setIsProdsAvilable(true);
     }
@@ -70,12 +71,29 @@ export default function RootLayout() {
   // to indicate whether fetching customers operation completed or not
   const [isTransactionsAvailable, setIsTransactionsAVailable] = useState(false);
   // to fetch customers from backend
-  const fetchTransactions = async () => {};
+  const fetchTransactions = async () => {
+    const url = `${process.env.REACT_APP_MY_IP}/payment/fetchAllPayment`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authtoken:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1ZGY3MjJjOGNjNjdhMTQ0N2IzOWJmNiJ9LCJpYXQiOjE3MTEzODk1MzZ9.QMKH6pujGQ3g5B_vC5VKxr9TM7SAJY1kzbeZPuAUakc"
+      },
+    });
+    const data = await response.json();
+    if (data.signal === 'green') {
+      console.log(data.payments);
+      setTransaction(data.payments);
+      setIsTransactionsAVailable(true);
+    }
+  };
 
   useEffect(() => {
     fetchCustomers();
     fetchProds();
-  }, [theme]);
+    fetchTransactions();
+  }, []);
 
   // ---------------------------------for UpdateProduct.js ------------------------------------
   // to store single product which user wants to Update

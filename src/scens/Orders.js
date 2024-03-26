@@ -146,7 +146,7 @@ export default function Orders() {
       {putCards}
     </Box>
 
-    {/* list of Products  */}
+    {/* list of Orders  */}
     <Box
     sx={{
       backgroundColor: theme.palette.primary[800],
