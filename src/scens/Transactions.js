@@ -36,7 +36,7 @@ export default function Transactions() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body : JSON.stringify({payment_id: transactions[index]._id, status: status})
+      body : JSON.stringify({payment_id: transactions[index]._id, status: "Refunded"})
     })
     const result = await response.json();
 
@@ -44,7 +44,7 @@ export default function Transactions() {
       alert('Some error occured');
       return;
     }
-    transactions[index].status = 'Completed';
+    transactions[index].status = 'Refunded';
     navigate('/transaction')
   }
 
@@ -101,7 +101,7 @@ export default function Transactions() {
                 sx={{ backgroundColor: theme.palette.background.default}}
               >
                 {transactions?.map((iteam,index) => {
-                  if(iteam.method === 'stripe' && iteam.status === 'Pending') iteam.status = 'Cancelled'
+                  if(iteam.method === 'stripe' && iteam.status === 'Pending') iteam.status = 'Cancelled' //only for old transaction as now logic is implemented to deal with this problem
                   return (
                     <TableRow key={iteam._id}>
                       <TableCell>
@@ -134,6 +134,12 @@ export default function Transactions() {
                                 ? "#387ADF"
                                 : iteam.status === "Cancelled"
                                 ? "red"
+                                : iteam.status === 'Reverse'
+                                ? "yellow"
+                                : iteam.status === 'Refunded'
+                                ? "gray"
+                                : iteam.status === "Send-Back"
+                                ? "darkblue"
                                 : "green",
                           }}
                         >
@@ -141,7 +147,7 @@ export default function Transactions() {
                         </FlexRow>
                       </TableCell>
                       <TableCell>{iteam.date.substring(0, 10)}</TableCell>
-                      <TableCell> {iteam.status === 'Pending' && <CheckCircleOutlineIcon sx={{cursor: 'pointer'}} onClick={() => handlePaymentUpdate(index, "Completed")}/>}</TableCell>
+                      <TableCell> {iteam.status === 'Send-Back' && <CheckCircleOutlineIcon sx={{cursor: 'pointer'}} onClick={() => handlePaymentUpdate(index)}/>}</TableCell>
                     </TableRow>
                   );
                 })}

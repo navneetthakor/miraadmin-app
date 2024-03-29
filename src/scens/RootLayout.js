@@ -9,6 +9,7 @@ import TransactionContext from "../context/TransactionContext";
 import { useTheme } from "@emotion/react";
 import { Update } from "@mui/icons-material";
 import UpdateProductContext from "../context/UpdateProductContext";
+import OrderContext from "../context/OrderContext";
 
 export default function RootLayout() {
   //to get theme object
@@ -32,7 +33,7 @@ export default function RootLayout() {
       headers: {
         "Content-Type": "application/json",
         authtoken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1ZGY3MjJjOGNjNjdhMTQ0N2IzOWJmNiJ9LCJpYXQiOjE3MTEzODk1MzZ9.QMKH6pujGQ3g5B_vC5VKxr9TM7SAJY1kzbeZPuAUakc"
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1ZGY3MjJjOGNjNjdhMTQ0N2IzOWJmNiJ9LCJpYXQiOjE3MTEzODk1MzZ9.QMKH6pujGQ3g5B_vC5VKxr9TM7SAJY1kzbeZPuAUakc",
       },
     });
     const data = await response.json();
@@ -78,14 +79,37 @@ export default function RootLayout() {
       headers: {
         "Content-Type": "application/json",
         authtoken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1ZGY3MjJjOGNjNjdhMTQ0N2IzOWJmNiJ9LCJpYXQiOjE3MTEzODk1MzZ9.QMKH6pujGQ3g5B_vC5VKxr9TM7SAJY1kzbeZPuAUakc"
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1ZGY3MjJjOGNjNjdhMTQ0N2IzOWJmNiJ9LCJpYXQiOjE3MTEzODk1MzZ9.QMKH6pujGQ3g5B_vC5VKxr9TM7SAJY1kzbeZPuAUakc",
       },
     });
     const data = await response.json();
-    if (data.signal === 'green') {
-      console.log(data.payments);
+    if (data.signal === "green") {
       setTransaction(data.payments);
       setIsTransactionsAVailable(true);
+    }
+  };
+
+  // ----------------------------------for Orders ---------------------------------------
+  // to store customers
+  const [orders, setOrders] = useState([]);
+  // to indicate whether fetching customers operation completed or not
+  const [isOrdersAvailable, setIsOrdersAvailable] = useState(false);
+  // to fetch customers from backend
+  const fetchOrders = async () => {
+    const url = `${process.env.REACT_APP_MY_IP}/order/fetchAllOrders`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authtoken:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1ZGY3MjJjOGNjNjdhMTQ0N2IzOWJmNiJ9LCJpYXQiOjE3MTEzODk1MzZ9.QMKH6pujGQ3g5B_vC5VKxr9TM7SAJY1kzbeZPuAUakc",
+      },
+    });
+    const data = await response.json();
+    if (data.signal === "green") {
+      const temp = data.data.reverse();
+      setOrders(temp);
+      setIsOrdersAvailable(true);
     }
   };
 
@@ -93,6 +117,7 @@ export default function RootLayout() {
     fetchCustomers();
     fetchProds();
     fetchTransactions();
+    fetchOrders();
   }, []);
 
   // ---------------------------------for UpdateProduct.js ------------------------------------
@@ -117,9 +142,11 @@ export default function RootLayout() {
         <ProductContext.Provider value={{ prods, isProdsAvilable, setProds, fetchProds }}>
           <UpdateProductContext.Provider value={{ updateProd, setUpdateProd }}>
             <CustomerContext.Provider value={{ customers, isCustomersAvailable }}>
-              <TransactionContext.Provider value={{ transactions, isTransactionsAvailable }}>
-                <Outlet context={isNonMobile} />
-              </TransactionContext.Provider>
+              <OrderContext.Provider value={{ orders, setOrders, isOrdersAvailable }}>
+                <TransactionContext.Provider value={{ transactions, setTransaction, isTransactionsAvailable }}>
+                  <Outlet context={isNonMobile} />
+                </TransactionContext.Provider>
+              </OrderContext.Provider>
             </CustomerContext.Provider>
           </UpdateProductContext.Provider>
         </ProductContext.Provider>
