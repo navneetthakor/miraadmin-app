@@ -84,7 +84,8 @@ export default function RootLayout() {
     });
     const data = await response.json();
     if (data.signal === "green") {
-      setTransaction(data.payments);
+      const temp = data.payments.reverse();
+      setTransaction(temp);
       setIsTransactionsAVailable(true);
     }
   };

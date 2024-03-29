@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ReverseIcon from '@mui/icons-material/FlipCameraAndroid';
+import TransactionContext from "../context/TransactionContext";
 
 // preparing card
 const cards = [
@@ -63,6 +64,7 @@ export default function Orders() {
 
   // getting orders array
   const { orders, isOrdersAvailable } = useContext(OrderContext);
+  const {transactions} = useContext(TransactionContext);
 
   // to update payment (mark as completed)
   const navigate = useNavigate();
@@ -84,6 +86,21 @@ export default function Orders() {
       return;
     }
     orders[index].status = status;
+
+    for(let i=0; i<transactions.length; i++){
+      if(transactions[i].order_id === orders[index]._id){
+        if(status === 'Cancelled') {
+          if(transactions[i].status === 'Completed') transactions[i].status = 'Send-Back';
+          else transactions[i].status = 'Cancelled'
+        }
+        else if(status === 'Returned'){
+          transactions[i].status = 'Refunded';
+        }
+        else {
+          transactions[i].status = status;
+        }
+      }
+    }
     navigate("/Overview");
 
   };
